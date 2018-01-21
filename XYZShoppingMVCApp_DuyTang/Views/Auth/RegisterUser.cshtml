@@ -1,0 +1,217 @@
+﻿@model XYZShoppingMVCApp_DuyTang.Models.DomainModels.RegisterUserVM
+
+@{
+    ViewBag.Title = "RegisterUser";
+    Layout = "~/Views/Shared/_XYZLayout.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+    <table id="Table1" border="0" cellpadding="1" cellspacing="1" style="width:80%">
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(x => x.customerInfo.UserID)
+        <tr>
+            <td align="right">
+                First Name&nbsp;
+            </td>
+            <td>
+                <asp:TextBox ID="txtFirstName" runat="server" BackColor="#FFFFC0"></asp:TextBox>
+                <div>@Html.EditorFor(x => x.customerInfo.FirstName)</div>
+            </td>
+            <td>
+                @Html.ValidationMessageFor(model => model.customerInfo.FirstName, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                Last Name
+            </td>
+            <td>
+                <div>@Html.EditorFor(x => x.customerInfo.LastName, new { required = "required" })</div>
+
+            </td>
+            <td>
+                @Html.ValidationMessageFor(model => model.customerInfo.LastName, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                Address
+            </td>
+            <td width="216px">
+                <div>@Html.EditorFor(x => x.customerInfo.Address, new { required = "required" })</div>
+
+            </td>
+            <td>
+                @Html.ValidationMessageFor(model => model.customerInfo.Address, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                City
+            </td>
+            <td width="80px">
+                <div>@Html.EditorFor(x => x.customerInfo.City, new { required = "required" })</div>
+
+            </td>
+            <td>
+                @Html.ValidationMessageFor(model => model.customerInfo.City, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                State
+            </td>
+            <td width="80px">
+                <div>@Html.EditorFor(x => x.customerInfo.State, new { required = "required" })</div>
+
+            </td>
+            <td>
+                @Html.ValidationMessageFor(model => model.customerInfo.State, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                Zipcode
+            </td>
+            <td width="80px">
+                <div>@Html.EditorFor(x => x.customerInfo.Zipcode, new { required = "required" })</div>
+
+            </td>
+            <td>
+                @Html.ValidationMessageFor(model => model.customerInfo.Zipcode, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                Email Address
+            </td>
+            <td width="80px">
+                <div>@Html.EditorFor(x => x.customerInfo.Email, new { htmlAttributes = new { @type = "email" } })</div>
+            </td>
+            <td>
+                @Html.ValidationMessageFor(model => model.customerInfo.Email, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                Credit Card Number
+            </td>
+            <td width="80px">
+                <div>@Html.EditorFor(x => x.customerInfo.CCNumber, new { pattern = "[0-9]{13,16}" })</div>
+
+            </td>
+            <td>
+                @Html.ValidationMessageFor(model => model.customerInfo.CCNumber, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td align="right" style="height: 7px">
+                Credit Card Type
+            </td>
+            <td style="height: 7px">
+                @Html.DropDownListFor(x => x.customerInfo.CCType, Model.CreditCardList)
+            </td>
+            <td style="height: 7px"></td>
+        </tr>
+        <tr>
+            <td align="right">
+                Credit Card Expiration
+            </td>
+            <td>
+                <div>@Html.EditorFor(x => x.customerInfo.CCExpiration, new { required = "required", htmlAttributes = new { @type = "month" } })</div>
+
+            </td>
+            <td>
+                @Html.ValidationMessageFor(model => model.customerInfo.CCExpiration, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                Username
+            </td>
+            <td>
+                <div>@Html.EditorFor(x => x.Username, new { required = "required" })</div>
+            </td>
+            <td>
+                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                Password
+            </td>
+            <td>
+                <div>@Html.EditorFor(x => x.Password, new { required = "required", htmlAttributes = new { @type = "password" } })</div>
+
+            </td>
+            <td>
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                Confirm Password
+            </td>
+            <td>
+                <div>@Html.EditorFor(x => x.ConfirmedPassword, new { required = "required", htmlAttributes = new { @type = "password" } })</div>
+
+            </td>
+            <td>
+                @Html.ValidationMessageFor(model => model.ConfirmedPassword, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                Password Hint Question
+            </td>
+            <td width="216px">
+                <div>@Html.EditorFor(x => x.PHint, new { required = "required", })</div>
+
+            </td>
+            <td>
+                @Html.ValidationMessageFor(model => model.PHint, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                Password Hint Answer
+            </td>
+            <td width="112px">
+                <div>@Html.EditorFor(x => x.PAns, new { required = "required", })</div>
+
+            </td>
+            <td>
+                @Html.ValidationMessageFor(model => model.PAns, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td align="right"></td>
+            <td>
+                <input type="submit" value="Register" name="command"
+                       style="background-color:blue;border-color:red;border-width:1px;color:yellow;width:112px" />
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+            </td>
+            <td>
+                <input style="width: 96px; height: 24px" type="reset" value="Reset" />
+            </td>
+        </tr>
+        <tr>
+            <td align="center" colspan="3">
+                <div width="338px" class="alert-danger">@ViewBag.Msg</div>
+                <div class="alert-success">@ViewBag.Success</div>
+            </td>
+        </tr>
+    </table>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script>
+        $(function () {
+            $('#customerInfo_CCExpiration').datepicker({ dateFormat: 'mm/yy' });
+        });
+    </script>
+}
+

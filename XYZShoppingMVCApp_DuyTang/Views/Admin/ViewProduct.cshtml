@@ -1,0 +1,131 @@
+﻿@model IEnumerable<XYZShoppingMVCApp_DuyTang.Product>
+
+@{
+    ViewBag.Title = "ViewProduct";
+    Layout = "~/Views/Shared/_XYZLayout.cshtml";
+}
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+<style>
+    #maintable td {
+        padding: 5px;
+    }
+
+    #maintable th {
+        padding: 5px;
+    }
+
+    .content:nth-child(even) {
+        background-color: white;
+    }
+
+    .content:nth-child(odd) {
+        background-color: #FFFF80;
+    }
+</style>
+
+<table  border="1" cellpadding="1" cellspacing="1" style="width:100%">
+    <tr>
+        <td align="right"></td>
+    </tr>
+    <tr>
+        <td align="right">
+            <div id="lblStatus" style="width:267px"></div>
+            <form action="~/Auth/Logout">
+                <input type="submit" value="Admin logout" style="background-color:greenyellow;border-color:red;
+                    width:109px"/>
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table id="maintable" class="table-bordered" border="1">
+                <tr style="color:#FFFFCC;background-color:#990000;font-weight:bold;">
+                    <th style="text-align:center">
+                        Edit Product
+                    </th>
+                    <th style="text-align:center">
+                        Product Image
+                    </th>
+                    <th style="text-align:center">
+                        Product Description
+                    </th>
+                    <th style="text-align:center">
+                        Price
+                    </th>
+                    <th style="text-align:center">
+                        Inventory
+                    </th>
+                    <th style="text-align:center">
+                        Product Name
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                <tr class="content">
+                    <td>
+                        @Html.ActionLink("Edit", "EditProduct", new { pid = item.ProductId })
+                    </td>
+                    <td>
+                        <img src="@Url.Content("~/PImages/" + item.ProductImage)" alt="Image" />
+                    </td>
+                    <td style="color:#330099">
+                        @Html.DisplayFor(modelItem => item.ProductLDesc)
+                    </td>
+                    <td style="color:#330099">
+                        $@Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td style="color:#330099">
+                        @Html.DisplayFor(modelItem => item.Inventory)
+                    </td>
+                    <td style="color:#330099">
+                        @Html.DisplayFor(modelItem => item.ProductSDesc)
+                    </td>
+                </tr>
+                }
+            </table>
+            <!--<asp:GridView ID="gv1" runat="server" AutoGenerateColumns="False" BackColor="White"
+                  BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" AllowPaging="True" OnPageIndexChanging="gv1_PageIndexChanging" PageSize="3">
+        <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
+        <RowStyle BackColor="White" ForeColor="#330099" />
+        <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399" />
+        <PagerStyle BackColor="#FFFFCC" ForeColor="#330099" HorizontalAlign="Center" />
+        <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />
+        <AlternatingRowStyle BackColor="#FFFFC0" />
+        <Columns>
+            <asp:TemplateField HeaderText="Edit Product">
+                <ItemTemplate>
+                    <a href='EditProduct.aspx?PID=<%# Eval("ProductID") %>'>
+                        Edit
+                    </a>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="Product Image">
+                <ItemTemplate>
+                    <img src='../PImages/<%# Eval("ProductImage") %>'>
+                </ItemTemplate>
+            </asp:TemplateField>
+
+            <asp:BoundField DataField="ProductLDesc" HeaderText="Product Description" />
+            <asp:BoundField DataField="Price" HeaderText="Price" DataFormatString="{0:C}" />
+            <asp:BoundField DataField="Inventory" HeaderText="Inventory" />
+            <asp:BoundField DataField="ProductSDesc" HeaderText="Product Name" />
+        </Columns>
+
+    </asp:GridView>
+        -->
+        </td>
+    </tr>
+</table>
+@section Scripts{
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(function () {
+            $("#maintable").DataTable({
+                searchPane: true
+            });
+        })
+    </script>
+}

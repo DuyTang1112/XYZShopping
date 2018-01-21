@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="XYZEVEDB" Class="XYZDatabaseModelsDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=LAPTOP-ICA3MO2U\SQLEXPRESS;Initial Catalog=XYZEVEDB;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="XYZEVEDBConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Products" Member="Products">
+    <Type Name="Product">
+      <Column Name="ProductId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CatID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProductSDesc" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ProductLDesc" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="ProductImage" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Instock" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Inventory" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="ProductCategory_Product" Member="ProductCategory" ThisKey="CatID" OtherKey="CatID" Type="ProductCategory" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ProductCategories" Member="ProductCategories">
+    <Type Name="ProductCategory">
+      <Column Name="CatID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CatDesc" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Association Name="ProductCategory_Product" Member="Products" ThisKey="CatID" OtherKey="CatID" Type="Product" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CustomerInfos" Member="CustomerInfos">
+    <Type Name="CustomerInfo">
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Zipcode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="State" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CCNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CCExpiration" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CCType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>

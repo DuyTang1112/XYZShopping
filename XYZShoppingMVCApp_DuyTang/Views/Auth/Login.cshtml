@@ -1,0 +1,58 @@
+﻿@model XYZShoppingMVCApp_DuyTang.Models.DomainModels.LoginModel
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_XYZLayout.cshtml";
+}
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <font color="#000099" size="5">
+            <strong>
+                <font color="darkviolet">
+                    <font size="4">
+                        Login to access our services
+                    </font> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                </font>&nbsp;
+            </strong>
+        </font>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="control-label col-md-2">User Name: </div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2">Password: </div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Login" name="submit" style="background-color:#FFFF80; border-color:blue;
+                    border-width:1px; color:#0000C0; height:28px" />
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <strong><font color="#006600" style="background-color: #ccffff">New Customers</font></strong>
+        : please @Html.ActionLink("Click here", "RegisterUser") to Register.
+    </div>
+}
+<div class="text-info">@ViewBag.Msg</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

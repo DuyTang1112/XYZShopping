@@ -1,0 +1,119 @@
+﻿@model XYZShoppingMVCApp_DuyTang.Product
+
+@{
+    ViewBag.Title = "EditProduct";
+    Layout = "~/Views/Shared/_XYZLayout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    <table border="0" cellpadding="1" cellspacing="1" style="width:50%">
+        <tr>
+            <td align="center" colspan="2">
+                <font color="#000099" size="4" style="background-color: #ffffcc">
+                    <strong>
+                        Product Modification
+                        - By Admins Only
+                    </strong>
+                </font>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                Product ID&nbsp;
+            </td>
+            <td width="64px">
+                @Html.HiddenFor(x => x.ProductId)
+                @Html.DisplayFor(x => x.ProductId)
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                Category&nbsp;
+            </td>
+            <td width="232">
+                @Html.HiddenFor(x => x.ProductCategory.CatDesc)
+                @Html.DisplayFor(x => x.ProductCategory.CatDesc)
+
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                Short Description&nbsp;
+            </td>
+            <td width="319px">
+                @Html.EditorFor(x => x.ProductSDesc)
+                @Html.ValidationMessageFor(x => x.ProductSDesc, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                Long Description&nbsp;
+            </td>
+            <td>
+                @Html.EditorFor(x => x.ProductLDesc, new
+                {
+                    height = "104px",
+                    MaxLength = "50",
+                    rows = "5",
+                    TextMode = "MultiLine",
+                    Width = "320px"
+                })
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                Price&nbsp;
+            </td>
+            <td width="88px">
+                @Html.EditorFor(x => x.Price)
+                @Html.ValidationMessageFor(x => x.Price, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                Image File Name&nbsp;
+            </td>
+            <td>
+                @Html.EditorFor(x => x.ProductImage)
+            </td>
+            <td><img src="@Url.Content("~/PImages/" + Model.ProductImage)" alt="Image" /></td>
+        </tr>
+        <tr>
+            <td align="right">
+                In Stock&nbsp;
+            </td>
+            <td>
+                @Html.CheckBoxFor(x => x.Instock)
+
+        </tr>
+        <tr>
+            <td align="right">
+                Inventory&nbsp;
+            </td>
+            <td width="88px">
+                @Html.EditorFor(x => x.Inventory)
+                @Html.ValidationMessageFor(x => x.Inventory, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Cancel" name="command"
+                       style="background-color:red;color:yellow;width:110px"/>
+            </td>
+            <td align="center">
+                <input type="submit" value="Update" name="command"
+                       style="background-color:yellow;width:99px" />
+            </td>
+        </tr>
+        <tr>
+            <td align="center" >
+                <div style="height:32px;width:312px">@ViewBag.Msg</div>
+                
+            </td>
+        </tr>
+    </table>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

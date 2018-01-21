@@ -1,0 +1,185 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <style>
+        .ctl00_mnuMain_5 {
+            background-color: #FFFFC0;
+            border-color: Red;
+            border-width: 1px;
+            border-style: solid;
+        }
+
+        .ctl00_mnuMain_2 {
+            border-width: 1px;
+            border-style: Solid;
+            font-size: Small;
+            width: 100px;
+        }
+
+        .menu_item:hover {
+            background-color: #FF8000;
+            border-color: red;
+            border-width: 1px;
+        }
+
+        #form1 {
+            display: block;
+            margin-top: 0em;
+        }
+    </style>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body style="padding-left:1%">
+        <div>
+            <table style="width: 100%">
+                <tr>
+                    <td align="center" colspan="2">
+                        <img src='~/images/mystorebanner.jpg' />
+                        <table>
+                            <tr>
+                                <td>
+                                    &nbsp;
+                                </td>
+                                <td>
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div id="keyAndCount"></div>
+                                </td>
+                                <td>
+                                    <div id="returnArea"></div>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" valign="top" width="100">
+                        <!--
+    <asp:Menu ID="mnuMain" runat="server" BorderStyle="Solid" BorderWidth="1px" Font-Size="Small" Width="100px">
+        <StaticMenuStyle BackColor="#FFFFC0" BorderColor="Red" BorderWidth="1px" />
+        <StaticMenuItemStyle BorderColor="#0000C0" BorderWidth="1px" />
+        <StaticSelectedStyle BackColor="#FF8000" BorderColor="Blue" />
+        <Items>
+            <asp:MenuItem NavigateUrl="Default.aspx" Text="Home" Value="Home"></asp:MenuItem>
+            <asp:MenuItem NavigateUrl="Products.aspx?catID=10" Text="Electronics" Value="Electronics"></asp:MenuItem>
+            <asp:MenuItem NavigateUrl="Products.aspx?catID=20" Text="Kitchen" Value="Kitchen"></asp:MenuItem>
+            <asp:MenuItem NavigateUrl="Products.aspx?catID=30" Text="Luggage" Value="Luggage"></asp:MenuItem>
+            <asp:MenuItem NavigateUrl="~/ViewCart.aspx" Text="View Cart" Value="View Cart"></asp:MenuItem>
+            <asp:MenuItem NavigateUrl="~/News.aspx" Text="News" Value="News"></asp:MenuItem>
+            <asp:MenuItem NavigateUrl="~/Checkout.aspx" Text="Checkout" Value="Checkout"></asp:MenuItem>
+            <asp:MenuItem NavigateUrl="~/Admin/AddProduct.aspx" Text="Add Product" Value="Add Product"></asp:MenuItem>
+            <asp:MenuItem NavigateUrl="~/Admin/UploadProductImage.aspx" Text="Upload Image" Value="Upload Image"></asp:MenuItem>
+            <asp:MenuItem NavigateUrl="~/Admin/ViewProducts.aspx" Text="View Products" Value="View Products"></asp:MenuItem>
+            <asp:MenuItem NavigateUrl="Contact.aspx" Text="Contact Us" Value="Contact Us"></asp:MenuItem>
+            <asp:MenuItem NavigateUrl="Logout.aspx" Text="Logout" Value="Logout"></asp:MenuItem>
+            <asp:MenuItem NavigateUrl="~/Accounting/CustomerBalances.aspx" Text="Accounting"
+                          Value="Accounting"></asp:MenuItem>
+            <asp:MenuItem NavigateUrl="~/Management/TestManager.aspx" Text="ManagerTest" Value="ManagerTest"></asp:MenuItem>
+            <asp:MenuItem NavigateUrl="https://192.168.1.168/XYZeve5/Login1.aspx" Text="Login" Value="Login"></asp:MenuItem>
+        </Items>
+        <StaticHoverStyle BackColor="#FF8000" BorderColor="Red" BorderWidth="1px" />
+        <DynamicSelectedStyle BackColor="#00C0C0" />
+    </asp:Menu>
+        -->             
+                        <table id="ctl00_mnuMain" class="ctl00_mnuMain_5 ctl00_mnuMain_2">
+                            <tr class="menu_item">
+                                <td>
+                                    @Html.ActionLink("Home", "Index", "Home")
+                                </td>
+                            </tr>
+                            <tr class="menu_item">
+                                <td>
+                                    @Html.ActionLink("Electronics", "GetProducts", "Products", new { id = 10 }, null)
+                                </td>
+                            </tr>
+                            <tr class="menu_item">
+                                <td>
+                                    @Html.ActionLink("Kitchen", "GetProducts", "Products", new { id = 20 }, null)
+                                </td>
+                            </tr>
+                            <tr class="menu_item">
+                                <td>
+                                    @Html.ActionLink("Luggage", "GetProducts", "Products", new { id = 30 }, null)
+                                </td>
+                            </tr>
+                            <tr class="menu_item">
+                                <td>
+                                    @Html.ActionLink("View Cart", "ViewCart", "Cart")
+                                </td>
+                            </tr>
+                            <tr class="menu_item">
+                                <td>
+                                    @Html.ActionLink("News", "News", "Home")
+                                </td>
+                            </tr>
+                            <tr class="menu_item">
+                                <td>
+                                    @Html.ActionLink("Checkout", "Checkout", "Cart")
+                                </td>
+                            </tr>
+                             @if (HttpContext.Current.User.IsInRole("Admin")) { 
+                            <tr class="menu_item">
+                                <td>
+                                    @Html.ActionLink("Add Product", "AddProduct", "Admin")
+                                </td>
+                            </tr>
+                            <tr class="menu_item">
+                                <td>
+                                    @Html.ActionLink("Upload Image", "UploadImage", "Admin")
+                                </td>
+                            </tr>
+                            <tr class="menu_item">
+                                <td>
+                                    @Html.ActionLink("View Products", "ViewProduct", "Admin")
+                                </td>
+                            </tr>
+                             }
+                            <tr class="menu_item">
+                                <td>
+                                    @Html.ActionLink("Contact Us", "Contact", "Home")
+                                </td>
+                            </tr>
+                            @if (HttpContext.Current.User.Identity.IsAuthenticated)
+                            {
+                            <tr class="menu_item">
+                                <td>
+                                    @Html.ActionLink("Logout", "Logout", "Auth")
+                                </td>
+                            </tr>
+                            }
+                            else
+                            {
+                                <tr class="menu_item">
+                                <td>
+                                    @Html.ActionLink("Login", "Login", "Auth")
+                                </td>
+                            </tr>
+                            }
+                            
+
+                        </table>
+                    </td>
+
+                    <td style="height: 237px" valign="top" width="90%" class="container body-content">
+                        @RenderBody()
+                    </td>
+                </tr>
+            </table>
+            &nbsp;
+        </div>
+    
+</body>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
+</html>

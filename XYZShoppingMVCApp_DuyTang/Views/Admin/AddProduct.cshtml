@@ -1,0 +1,112 @@
+﻿@model XYZShoppingMVCApp_DuyTang.Models.ViewModels.AddProductVM
+
+@{
+    ViewBag.Title = "AddProduct";
+    Layout = "~/Views/Shared/_XYZLayout.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <table border="0" cellpadding="1" cellspacing="1" style="width:80%">
+        <tr>
+            <td align="center" colspan="2">
+                <font color="#000099" size="4" style="background-color: #ffffcc">
+                    <strong>
+                        New Product
+                        Specs - By Admins Only
+                    </strong>
+                </font>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <hr />
+                @Html.HiddenFor(x=>x.product.ProductId)
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                Short Description&nbsp;
+            </td>
+            <td>
+                @Html.EditorFor(x=>x.product.ProductSDesc)
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                Category &nbsp;
+            </td>
+            <td>
+                @Html.DropDownListFor(x=>x.product.CatID,Model.catlist)
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                Long Description&nbsp;
+            </td>
+            <td>
+                <!--<asp:TextBox ID="txtLongDesc" runat="server" Height="104px" MaxLength="50" Rows="5"
+                 TextMode="MultiLine" Width="320px"></asp:TextBox>-->
+                @Html.EditorFor(x => x.product.ProductLDesc)
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                Price&nbsp;
+            </td>
+            <td>
+                @Html.EditorFor(x => x.product.Price)
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                Image File Name&nbsp;
+            </td>
+            <td>
+                @Html.EditorFor(x => x.product.ProductImage)
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                In Stock&nbsp;
+            </td>
+            <td>
+                <asp:CheckBox ID="chkInStock" runat="server" />
+                @Html.CheckBoxFor(x=>x.product.Instock)
+                &nbsp; &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                Inventory
+            </td>
+            <td>
+                @Html.EditorFor(m => m.product.Inventory, new { htmlAttributes = new { min = 1, max = 1000 } })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input style="width: 80px; height: 24px" type="reset" value="Reset" />
+            </td>
+            <td align="center">
+                <input type="submit" value="Add Product" 
+                       style="background-color:yellow;width:110px" />
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td align="center" colspan="2">
+                <div style="height:23px; width:373px">@ViewBag.Msg</div>
+            </td>
+        </tr>
+    </table>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

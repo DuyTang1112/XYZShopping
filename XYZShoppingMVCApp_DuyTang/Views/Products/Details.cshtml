@@ -1,0 +1,115 @@
+﻿@model XYZShoppingMVCApp_DuyTang.Models.ViewModels.ProductDetailsVM
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_XYZLayout.cshtml";
+}
+<style>
+    hr {
+        border-top: 3px solid #0000cc;
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+</style>
+@using (Html.BeginForm("Details","Products",new {id=Model.Product.ProductId}))
+{
+    @Html.AntiForgeryToken()
+    <table id="Table1" border="0" cellpadding="1" cellspacing="1" style="height: 123px"
+           width="800">
+        <tr>
+            <td id="pid" class="invisible">@Model.Product.ProductId</td>
+            <td>
+                <div style="font-weight:bold; color:purple; width:427px" id="ProductSDesc">
+                    @Model.Product.ProductSDesc
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <div style=" width:256px">
+                    $@Html.DisplayFor(model => model.Product.Price)
+                </div>
+               
+            </td>
+        </tr>
+        <tr>
+            <td align="left">
+                <img src="@Url.Content("~/PImages/" + Model.Product.ProductImage)" alt="Image" />
+                &nbsp;&nbsp;
+            </td>
+            <td  colspan="2">@Html.DisplayFor(model => model.Product.ProductLDesc)</td>
+        </tr>
+        <tr>
+            <td align="right" colspan="2" >
+                <hr size="3" style="color:#0000cc; width:100%" class=""/>
+            </td>
+        </tr>
+        <tr>
+            <td align="right" style="margin-right:2px">
+                Please Enter Quantity: 
+            </td>
+            <td width="77px">
+                @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+            </td>
+            <td>@Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="button" value="Add To Cart" name="command" id="addtocart"
+                       style="background-color:#FFFF80;color:#C00000; font-weight:bold; width:144px" />
+                
+                &nbsp; &nbsp;&nbsp;
+               
+            </td>
+        </tr>
+        <tr>
+            <td align="right"></td>
+            <td align="left" colspan="2"></td>
+        </tr>
+        <tr>
+            <td align="right"></td>
+            <td align="left" colspan="2">
+                <input type="submit" value="View Cart" name="command" 
+                       style="background-color:yellow; border-color:#8080FF; width:146px" />
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                
+                
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            </td>
+            <td>
+                <input type="submit" value="Continue Shopping" name="command"
+       style="background-color:#80FF80;  width:169px" />
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="2">
+                <div id="status">@ViewBag.Msg</div>
+            </td>
+        </tr>
+    </table>
+}
+@section Scripts{
+    <script>
+        $(function () {
+            $("#addtocart").click(function () {
+                pid = $("#pid").text().trim();
+                quantity = $("#Quantity").val();
+                console.log("Quantity:" + quantity);
+                $.ajax({
+                    url: "AddToCart?id=" + pid + "&quantity=" + quantity,
+                    success: function () {
+                        $("#status").text(quantity + " item(s) of " + $("#ProductSDesc").text() + " is added to your cart.").removeClass("alert-danger").addClass("alert-success");
+                        setTimeout(function () { $("#status").text(""); }, 2000);
+                    },
+                    error: function (xmlhttp, textStatus, errorThrown) {
+                        $("#status").text(errorThrown).removeClass("alert-success").addClass("alert-danger");
+                        setTimeout(function () { $("#status").text(""); }, 2000);
+                    }
+                });
+            })
+        });
+    </script>    
+}

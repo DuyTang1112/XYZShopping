@@ -1,0 +1,295 @@
+﻿@model XYZShoppingMVCApp_DuyTang.Models.ViewModels.CheckoutVM
+
+@{
+    ViewBag.Title = "Checkout";
+    Layout = "~/Views/Shared/_XYZLayout.cshtml";
+}
+
+<style>
+    hr {
+        border-top: 3px solid #0000cc;
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+</style>
+@using (Html.BeginForm())
+{
+    <table id="Table1" border="0" cellpadding="1" cellspacing="1" style="width:100%">
+        <tr>
+            <td align="center" colspan="2" style="height: 21px">
+                <font color="#000099" size="4" style="background-color: #ffff66">
+                    <strong>
+                        Final Checkout
+                        Summary
+                    </strong>
+                </font>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table id="Table1" border="0" cellpadding="1" cellspacing="1" style="width:100%">
+                    <tr>
+                        <td>
+                            <hr color="#0000cc" size="3" width="100%" />
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <!--To be added data-->
+                            <table class="table">
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.cart.list[0].ProductId)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.cart.list[0].ProductName)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.cart.list[0].Price)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.cart.list[0].Quantity)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.cart.list[0].Total)
+                                    </th>
+                                    <th></th>
+                                </tr>
+
+                                @for (int i = 0, a = Model.cart.list.Count; i < a; i++)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => modelItem.cart.list[i].ProductId)
+                                            @Html.HiddenFor(modelItem => modelItem.cart.list[i].ProductId)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => modelItem.cart.list[i].ProductName)
+                                            @Html.HiddenFor(modelItem => modelItem.cart.list[i].ProductName)
+                                        </td>
+                                        <td>
+                                            $@Html.DisplayFor(modelItem => modelItem.cart.list[i].Price)
+                                            @Html.HiddenFor(modelItem => modelItem.cart.list[i].Price)
+                                        </td>
+                                        <td>
+                                            @Html.EditorFor(modelItem => modelItem.cart.list[i].Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(modelItem => modelItem.cart.list[i].Quantity, "", new { @class = "text-danger" })
+                                        </td>
+                                        <td>
+                                            $@Html.DisplayFor(modelItem => modelItem.cart.list[i].Total)
+                                            @Html.HiddenFor(modelItem => modelItem.cart.list[i].Total)
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                }
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Shipping and handling:</td>
+                                    <td>
+                                        @Html.HiddenFor(x => x.cart.ShippingFee)
+                                        $@Model.cart.ShippingFee
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <font color='blue'><b>Grand Total: </b></font>
+                                        <b>
+                                            @{
+                                                decimal? sum = 0;
+                                                foreach (var item in Model.cart.list)
+                                                {
+                                                    sum = sum + item.Total;
+                                                }
+                                                sum += Model.cart.ShippingFee;
+                                            }
+                                            $@sum
+                                        </b>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>
+                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+                                &nbsp;
+                                <input type="submit" value="Clear All" name="command"
+                                       style="background-color:#C0FFC0; width:96px" />
+                                <input type="submit" value="Update Cart" name="command"
+                                       style="background-color:yellow;height:28px; width:130px" />&nbsp;
+                                <input type="submit" value="Cancel Changes" name="command"
+                                       style="background-color:red;height:28px; width:144px;color:yellow" />
+                            </p>
+                            <p>
+                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <font color="#006600">
+                                    (To remove an individual item,
+                                    set the quantity to 0)
+                                </font>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <hr color="#0000cc" size="3" width="100%" />
+                            &nbsp;
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr style="font-size: 12pt">
+            <td colspan="2">
+                <font color="#990066" size="4">
+                    <span style="color: #cc0000">
+                        <span>
+                            Please update the following
+                            shipping and credit card information, if it is different.
+                        </span>
+                    </span>
+                </font>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                            @Html.HiddenFor(x => x.customerInfo.UserID)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            First Name:&nbsp;
+                        </td>
+                        <td>
+                            @Html.HiddenFor(x => x.customerInfo.FirstName)
+                            @Html.DisplayFor(x => x.customerInfo.FirstName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            Last Name:&nbsp;
+                        </td>
+                        <td>
+                            @Html.HiddenFor(x => x.customerInfo.LastName)
+                            @Html.DisplayFor(x => x.customerInfo.LastName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            Address
+                        </td>
+                        <td>
+                            @Html.EditorFor(x => x.customerInfo.Address, new { required = "required" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p align="right">
+                                City
+                            </p>
+                        </td>
+                        <td>
+                            @Html.EditorFor(x => x.customerInfo.City, new { required = "required" })
+                            &nbsp;&nbsp; State
+                            @Html.EditorFor(x => x.customerInfo.State, new { required = "required" })
+                            &nbsp; &nbsp; &nbsp;&nbsp; Zip Code
+                            @Html.EditorFor(x => x.customerInfo.Zipcode, new { required = "required" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            Email
+                        </td>
+                        <td>
+                            @Html.EditorFor(x => x.customerInfo.Email, new { htmlAttributes = new { @type = "email" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            Credit Card Number
+                        </td>
+                        <td>
+                            @Html.EditorFor(x => x.customerInfo.CCNumber, new { pattern = "[0-9]{13,16}" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="height: 8px">
+                            Credit Card Type
+                        </td>
+                        <td style="height: 8px">
+                            @Html.DropDownListFor(x => x.customerInfo.CCType, Model.CreditCardList)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            Expiration Date
+                        </td>
+                        <td>
+                            @Html.EditorFor(x => x.customerInfo.CCExpiration, new { required = "required" })&nbsp;
+                            (mm/yy)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            <input type="submit" value="Update Info" name="command" style="background-color:yellow;width:98px" />
+                        </td>
+                        <td align="right">
+                            <input type="button" id="confirm" name="command" value="Confirm Check Out"
+                                   style="background-color:blue;width:158px;color:yellow" />
+                            <input type="submit" id="hiddenconfirm" name="command" hidden="hidden" value="Checkout" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right"></td>
+                        <td align="left">
+                            <div width="338px" class="alert-danger">@ViewBag.Error</div>
+                            <div class="alert-success">@ViewBag.Success</div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+    </table>
+    <div id="dlgConfirm" style="display:none" title="Confirm Checkout?">
+        <p>
+            <span class="ui-icon ui-icon-alert" style="float:left;margin:0 7px 20px 0"></span>
+            Are you sure to check out this order?
+        </p>
+    </div>
+}
+@section Scripts{
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script>
+        $(function () {
+            $('#customerInfo_CCExpiration').datepicker({ dateFormat: 'mm/yy' });
+
+            $("#confirm").click(function (e) {
+                $("#dlgConfirm").show(); // make the div dlgConfirm visible
+                $("#dlgConfirm").dialog({
+                    buttons: {
+                        "Confirm": function () {
+                            $('#hiddenconfirm').trigger('click');
+                        },
+                        Cancel: function () {
+                            $(this).dialog("close");
+                        }
+                    },
+                    "modal": true
+                });
+                e.preventDefault();
+                return false;
+            });
+        });
+    </script>
+}

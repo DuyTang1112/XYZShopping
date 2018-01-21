@@ -1,0 +1,147 @@
+﻿@model XYZShoppingMVCApp_DuyTang.Models.DomainModels.Cart
+
+@{
+    ViewBag.Title = "ViewCart";
+    Layout = "~/Views/Shared/_XYZLayout.cshtml";
+}
+
+<style>
+    hr {
+        border-top: 3px solid #0000cc;
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+</style>
+@using (Html.BeginForm())
+{
+<table id="Table1" border="0" cellpadding="1" cellspacing="1" style="width:100%">
+    <tr>
+        <td>
+            <table id="Table1" border="0" cellpadding="1" cellspacing="1" style="width:100%">
+                <tr>
+                    <td>
+                        <hr color="#0000cc" size="3" width="100%" />
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td><!--To be added data-->
+                        <table class="table">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.list[0].ProductId)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.list[0].ProductName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.list[0].Price)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.list[0].Quantity)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.list[0].Total)
+                                </th>
+                                <th></th>
+                            </tr>
+
+                            @for (int i=0, a=Model.list.Count;i<a;i++)
+                            {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => modelItem.list[i].ProductId)
+                                    @Html.HiddenFor(modelItem => modelItem.list[i].ProductId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => modelItem.list[i].ProductName)
+                                    @Html.HiddenFor(modelItem => modelItem.list[i].ProductName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => modelItem.list[i].Price)
+                                    @Html.HiddenFor(modelItem => modelItem.list[i].Price)
+                                </td>
+                                <td>
+                                    @Html.EditorFor(modelItem => modelItem.list[i].Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(modelItem => modelItem.list[i].Quantity, "", new { @class = "text-danger" })
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => modelItem.list[i].Total)
+                                    @Html.HiddenFor(modelItem => modelItem.list[i].Total)
+                                </td>
+                                <td></td>
+                            </tr>
+                            }
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Shipping and handling:</td>
+                                <td>@Html.HiddenFor(x=>x.ShippingFee)
+                                @Model.ShippingFee</td>
+                            </tr>
+                            <tr>
+                                <td></td><td></td><td></td><td></td>
+                                <td>
+                                    <font color='blue'><b>Grand Total: </b></font>
+                                    <b>
+                                        @{
+                                            decimal? sum = 0;
+                                            foreach(var item in Model.list)
+                                            {
+                                                sum = sum + item.Total;
+                                            }
+                                            sum += Model.ShippingFee;
+                                        }
+                                        $@sum 
+                                    </b>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>
+                            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+                            &nbsp;
+                            <input type="submit" value="Clear All" name="command"
+                                   style="background-color:#C0FFC0; width:96px" />
+                            <input type="submit" value="Update Cart" name="command"
+                                   style="background-color:yellow;height:28px; width:130px" />&nbsp;
+                            <input type="submit" value="Cancel Changes" name="command"
+                                   style="background-color:red;height:28px; width:144px;color:yellow" />
+                        </p>
+                        <p>
+                            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <font color="#006600">
+                                (To remove an individual item,
+                                set the quantity to 0)
+                            </font>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <hr color="#0000cc" size="3" width="100%" />
+                        &nbsp;
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            <input type="submit" value="Check Out" name="command"
+                   style="background-color:#80FF80;border-color:blue; width:128px" />
+        </td>
+        <td>
+            <input type="submit" value="Continue Shopping" name="command"
+                   style="background-color:#FFFF80;border-color:red; width:163px" />
+        </td>
+    </tr>
+</table>
+}

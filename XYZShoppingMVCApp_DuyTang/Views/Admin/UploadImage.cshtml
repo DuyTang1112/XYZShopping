@@ -1,0 +1,41 @@
+﻿@model XYZShoppingMVCApp_DuyTang.Models.ViewModels.UploadImgVM
+@{
+    ViewBag.Title = "UploadImage";
+    Layout = "~/Views/Shared/_XYZLayout.cshtml";
+}
+
+@using (Html.BeginForm("UploadImage",
+        "Admin",
+        FormMethod.Post,
+        new { enctype = "multipart/form-data" }))
+{
+    
+    <table  border="0" cellpadding="1" cellspacing="1" style="width: 600px">
+        <tr>
+            <td></td>
+            <td>
+                <input type="file" name="file" id="file" /><br><br>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                File Name on Server&nbsp;
+            </td>
+            <td>
+                @Html.EditorFor(x=>x.FileNameOnServer)
+            </td>
+        </tr>
+        <tr>
+            <td style="height: 34px"></td>
+            <td style="height: 34px">
+                <input type="submit" value="Upload Product Image" 
+                       style="background-color:yellow;height:29px;width:182px" />
+            </td>
+        </tr>
+        <tr>
+            <td align="center" colspan="2">
+                <div  Width="284px">@ViewBag.Message</div>
+            </td>
+        </tr>
+    </table>
+}

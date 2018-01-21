@@ -1,0 +1,91 @@
+﻿@model IEnumerable<XYZShoppingMVCApp_DuyTang.Product>
+
+@{
+    ViewBag.Title = "GetProducts";
+    Layout = "~/Views/Shared/_XYZLayout.cshtml";
+}
+
+
+<style>
+    #maintable td{
+        padding:5px;
+    }
+    #maintable th {
+        padding: 5px;
+    }
+    .content:nth-child(even) {
+        background-color: white;
+    }
+
+    .content:nth-child(odd) {
+        background-color: #FFFF80 ;
+    }
+</style>
+<table style="width: 100%">
+    <tr>
+        <td align="center"></td>
+    </tr>
+
+    <tr>
+        <td align="center">
+            <div id="lblStatus" style="width:271px" >@ViewBag.Msg</div>
+        </td>
+    </tr>
+    <!--
+    <tr>
+        <td align="center">
+
+            <asp:GridView ID="gv1" runat="server" AutoGenerateColumns="False" BackColor="White"
+                          BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" Font-Size="Small">
+                <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
+                <Columns>
+                    <asp:BoundField DataField="ProductSDesc" HeaderText="Product Description" />
+                    <asp:HyperLinkField DataNavigateUrlFields="ProductID" DataNavigateUrlFormatString="ProductDisplay.aspx?PID={0}"
+                                        HeaderText="Product Detail" Text="detail" />
+                    <asp:ImageField DataImageUrlField="ProductImage" DataImageUrlFormatString="~/PImages/{0}"
+                                    HeaderText="Product Picture">
+                    </asp:ImageField>
+                </Columns>
+                <RowStyle BackColor="White" ForeColor="#330099" />
+                <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399" />
+                <PagerStyle BackColor="#FFFFCC" ForeColor="#330099" HorizontalAlign="Center" />
+                <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />
+                <AlternatingRowStyle BackColor="#FFFF80" />
+            </asp:GridView>
+        </td>
+    </tr>-->
+    <tr>
+        <td align="center">
+            <table id="maintable" class="table-bordered" border="1">
+                <tr style="color:#FFFFCC;background-color:#990000;font-weight:bold;">
+                    <th style="text-align:center" >
+                        Product Descripton
+                    </th>
+                    <th style="text-align:center">
+                        Product Detail
+                    </th>
+                    <th style="text-align:center">
+                        Product Picture
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+                 {
+                <tr class="content">
+                    <td style="color:#330099">
+                        @Html.DisplayFor(modelItem => item.ProductSDesc)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "Details", new { pid = item.ProductId })
+                    </td>
+                    <td>
+                        <img src="@Url.Content("~/PImages/" + item.ProductImage)" alt="Image" />
+                    </td>
+                 </tr>
+}
+            </table>
+        </td>
+   </tr>
+        
+    
+</table>
